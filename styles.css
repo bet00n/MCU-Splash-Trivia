@@ -1,11 +1,16 @@
+:root {
+    --topClipValue: '';
+    --rightClipValue: '';
+    --bottomClipValue: '';
+    --leftClipValue:'';
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-div {
-    
-}
+
 body {
     background: url(images/titan.jpg) center/cover no-repeat ;
     height: 100vh;
@@ -65,7 +70,7 @@ body {
 
 img {
     height: 100%;
-    clip-path:inset(100px 0px 0px 0px);
+    clip-path: inset(var(--topClipValue) var(--rightClipValue) var(--bottomClipValue) var(--leftClipValue));
 }
 
 .answers {
