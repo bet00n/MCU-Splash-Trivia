@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/23a4995252.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="backdrop"></div>
     <div class="game-content">
         <div class="game-info">
             <div class="round">
@@ -23,13 +24,13 @@
             </div>
             <div class="time-bonus">
                 <h1>Time Bonus</h1>
-                <h2><span>+5</span></h2>
+                <h2><span>+</span><span id="time-bonus-value">5</span></h2>
             </div>
         </div>
         <div class="lifelines">
-            <button class='lifeline' id="zoom"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class='lifeline' id="zoom"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></i></i></i></i></button>
             <button class='lifeline' id="50/50">50/50</button>
-            <button class='lifeline' id="bonus-question"><i class="fa-sharp fa-solid fa-question"></i></button>
+            <button class='lifeline' id="hints"><i class="fa-sharp fa-solid fa-question"></i></button>
         </div>
         <div class="splash">
             <div class="splash-element">
@@ -37,10 +38,10 @@
             </div>
         </div>
         <div class="answers">
-            <button>Option 1</button>
-            <button>Option 2</button>
-            <button>Option 3</button>
-            <button>Option 4</button>
+            <button id="btn1">Option 1</button>
+            <button id="btn2">Option 2</button>
+            <button id="btn3">Option 3</button>
+            <button id="btn4">Option 4</button>
         </div>
     </div>
 </body>
