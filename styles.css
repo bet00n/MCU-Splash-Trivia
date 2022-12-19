@@ -46,6 +46,7 @@ body {
 .game-info {
     display: flex;
     justify-content: space-around;
+    text-align: center;
 }
 
 .lifelines {
@@ -77,6 +78,9 @@ body {
     height: 90%;
     margin: 0 auto;
     width: fit-content;
+}
+
+.splash-element:hover {
     border: 1px grey solid;
 }
 

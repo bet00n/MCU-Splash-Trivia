@@ -16,6 +16,8 @@ const generateMovieIndex = () => {
     return idx;
 }
 
+const generateValidAnswer = (idx) => movies[idx].title;
+
 const generateSplash = (idx) => {
     const randomTopClipValue = generateNumber(MAX_CLIP_PERCENTAGE);
     const randomRightClipValue = generateNumber(MAX_CLIP_PERCENTAGE);
@@ -33,20 +35,20 @@ const generateAnswers = (validAnswer) => {
     const tempMovieArr = [...movies];
     tempMovieArr.sort(() => 0.5 - Math.random());
     for (i = 0 ; i < 3 ; i++) {
-        optionsPool.push(tempMovieArr.shift());
+        optionsPool.push(tempMovieArr.shift().title);
     }
     optionsPool.sort(() => 0.5 - Math.random());
     optionButtons.forEach((btn) => {
-        btn.innerHTML = optionsPool.shift().title;
+        btn.innerHTML = optionsPool.shift();
     })
 }
 
 const validateAnswer = (validAnswer) => {
-    const validTitle = validAnswer.title;
-    console.log(validTitle);
+    console.log('Przeslana odpowiedz: ' + validAnswer);
     optionButtons.forEach((btn) => {
-        btn.addEventListener('click',(validTitle) => {
-            if (btn.innerHTML == validAnswer.title) {
+        btn.addEventListener('click',() => {
+            console.log(btn.innerHTML, validAnswer);
+            if (btn.innerHTML === validAnswer) {
                 console.log('good answer');
                 //add bonus points
                 setPoints(10);
@@ -55,7 +57,7 @@ const validateAnswer = (validAnswer) => {
             }
             //show image
             playRound();
-        })
+        }, false)
     })
 }
 
@@ -66,10 +68,8 @@ const setPoints = (points) => {
 
 const playRound = () => {
     const idx = generateMovieIndex();
-    const validAnswer = {title: movies[idx].title,
-                         image: movies[idx].image,
-                         hints: movies[idx].hints};
-    console.log(validAnswer);
+    let validAnswer = generateValidAnswer(idx);
+    console.log('Nowa odpowiedz: ' + validAnswer);
     generateSplash(idx);
     movies.splice(idx,1);
     generateAnswers(validAnswer);
