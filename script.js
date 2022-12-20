@@ -2,9 +2,17 @@ const root = document.querySelector(':root');
 const splash = document.querySelector('.splash-element');
 const optionButtons = document.querySelectorAll('.answers button');
 const totalPointsDisplay = document.querySelector('.points span');
+const activeRoundDisplay = document.querySelector('.round span');
+const backdrop = document.querySelector('.backdrop');
+const lightBackdrop = document.querySelector('.light-backdrop');
+const zoom = document.querySelector('#zoom');
+const fiftyFifty = document.querySelector('#fifty-fifty');
+const hints = document.querySelector('#hints');
 
-let MAX_CLIP_PERCENTAGE = 80;
+let MAX_CLIP_PERCENTAGE = 90;
 let totalPoints = 0;
+let activeRound = 1;
+let validAnswer = '';
 
 const generateNumber = (max) => {
     const num = Math.floor(Math.random()*max);  
@@ -16,14 +24,20 @@ const generateMovieIndex = () => {
     return idx;
 }
 
-const generateValidAnswer = (idx) => movies[idx].title;
+const toggleBackdrop = () => {
+    backdrop.classList.toggle('hidden');
+}
+
+const toggleLightBackdrop = () => {
+    lightBackdrop.classList.toggle('hidden');
+}
 
 const generateSplash = (idx) => {
     const randomTopClipValue = generateNumber(MAX_CLIP_PERCENTAGE);
     const randomRightClipValue = generateNumber(MAX_CLIP_PERCENTAGE);
     const randomBottomClipValue = (MAX_CLIP_PERCENTAGE - randomTopClipValue);
     const randomLeftClipValue = (MAX_CLIP_PERCENTAGE - randomRightClipValue);
-    splash.innerHTML = `<img src=${movies[idx].image} alt="movie poster">`;
+    splash.innerHTML = `<img class="cropped" src=${movies[idx].image} alt="movie poster">`;
     root.style.setProperty('--topClipValue', `${randomTopClipValue}` + '%');
     root.style.setProperty('--rightClipValue', `${randomRightClipValue}` + '%');
     root.style.setProperty('--bottomClipValue', `${randomBottomClipValue}` + '%');
@@ -40,24 +54,9 @@ const generateAnswers = (validAnswer) => {
     optionsPool.sort(() => 0.5 - Math.random());
     optionButtons.forEach((btn) => {
         btn.innerHTML = optionsPool.shift();
-    })
-}
-
-const validateAnswer = (validAnswer) => {
-    console.log('Przeslana odpowiedz: ' + validAnswer);
-    optionButtons.forEach((btn) => {
-        btn.addEventListener('click',() => {
-            console.log(btn.innerHTML, validAnswer);
-            if (btn.innerHTML === validAnswer) {
-                console.log('good answer');
-                //add bonus points
-                setPoints(10);
-            } else {
-                console.log('wrong answer');
-            }
-            //show image
-            playRound();
-        }, false)
+        if (btn.innerHTML == validAnswer) {
+            btn.classList.add('valid');
+        }
     })
 }
 
@@ -66,14 +65,67 @@ const setPoints = (points) => {
     totalPointsDisplay.innerHTML = totalPoints;
 }
 
+const clearScene = () => {
+    optionButtons.forEach((btn) => {
+        btn.classList.remove('correct-answer', 'incorrect-answer', 'valid');
+    })
+}
+const setRound = () => {
+    clearScene();
+    if (activeRound == 10){
+        //end view
+        console.log('koniec gry');
+        toggleBackdrop();
+    } else {
+        activeRound++;
+        activeRoundDisplay.innerHTML = activeRound;
+        playRound();
+    }    
+}
+
 const playRound = () => {
     const idx = generateMovieIndex();
-    let validAnswer = generateValidAnswer(idx);
+    validAnswer =  movies[idx].title;
     console.log('Nowa odpowiedz: ' + validAnswer);
     generateSplash(idx);
     movies.splice(idx,1);
     generateAnswers(validAnswer);
-    validateAnswer(validAnswer);
 }
+
+optionButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        if (btn.innerHTML == validAnswer) {
+            btn.classList.add('correct-answer');
+            //add bonus points
+            setPoints(10);
+        } else {
+            btn.classList.add('incorrect-answer');
+            document.querySelector('.valid').classList.add('correct-answer');
+        }
+        toggleLightBackdrop();
+        document.querySelector('img').classList.remove('cropped');
+        document.querySelector('img').classList.add('animated');
+    })
+})
+
+lightBackdrop.addEventListener('click', () => {
+    toggleLightBackdrop();
+    setRound();
+})
+
+zoom.addEventListener('click', () => {
+    //zoom 
+})
+
+fiftyFifty.addEventListener('click',() => {
+    while (i<2) {
+        const rand = Math.floor(Math.random()*4 +1)
+        if (document.querySelector('section :nth-child(rand)').innerHTML == validAnswer) break;
+        else {
+            
+        }
+    }
+})
+
 
 playRound();
