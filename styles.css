@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 :root {
     --topClipValue: '';
     --rightClipValue: '';
@@ -9,6 +11,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -18,6 +21,8 @@ body {
     justify-content: center;
     align-items: center;
     color: antiquewhite;
+    overflow: hidden;
+    
 }
 
 .backdrop {
@@ -26,7 +31,7 @@ body {
     height: 100vh;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.9);
     z-index: 10;
     /* pointer-events: none; */
 }
@@ -38,24 +43,64 @@ body {
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0);
-    z-index: 10;
+    z-index: 11;
     /* pointer-events: auto; */
+}
+
+#play-btn {
+    position: absolute;
+    font-size: 10rem;
+    padding: 10px;
+    color: antiquewhite;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 3px solid #FA7F08;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 12;
+}
+
+#play-btn:hover {
+    color: #FA7F08;
+    background-color: antiquewhite;
+}
+
+.choose-difficulty {
+    position: absolute;
+    font-size: 2.5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 2rem;
+    justify-content: space-around;
+    z-index: 12;
+}
+
+.choose-difficulty button {
+    all: unset;
+    cursor: pointer;
+}
+
+.choose-difficulty button:hover {
+    color: grey;
 }
 
 .game-content {
     width: 60%;
-    height: 90%;
+    min-width: 40rem;
+    height: 95%;
     padding: 1rem;
     border: 1px solid #FA7F08;
     border-radius: 50px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: rgba(0, 0, 0, 0.8);
+    position: relative;
 }
 
 .game-info {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 5rem;
     text-align: center;
 }
 
@@ -71,16 +116,34 @@ body {
 
 .lifeline {
     font-size: 1rem;
-    color: white;
-    background: #02735E;
-    width: 3rem;
-    height: 3rem;
-    border: 4px solid #014040;
+    color: black;
+    background: grey;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 4px solid black;
     border-radius: 50%;
+    pointer-events: none;
+}
+
+.available {
+    color: white;
+    background-color: #02735E;
+    border-color: #014040;
+    pointer-events: auto;
+}
+
+.available:hover {
+    color: #03A678;
+    background: #014040;
+    cursor: pointer;
+}
+
+.cut {
+    animation: slide-out 2s linear forwards;
 }
 
 .splash {
-    min-height: 60%;
+    height: 60%;
     text-align: center;
 }
 
@@ -91,7 +154,7 @@ body {
 }
 
 .splash-element:hover {
-    border: 1px grey solid;
+    border: 1px grey dashed;
 }
 
 img {
@@ -106,21 +169,34 @@ img {
     animation: fade-in 2s linear forwards ;
 }
 
+.hints-display {
+    text-align: center;
+    border: 1px solid #F27405;
+    border-radius: 50px;
+    padding: 2px 1rem;
+    position: absolute;
+    bottom: 12rem;
+    width: fit-content;
+    display: none;
+    animation: fade-in 2s linear forwards;
+}
+
 .answers {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
+    margin-bottom: 1rem;
+    padding: .5rem;
     border: 1px grey solid;
     border-radius: 1rem;
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
     gap: 1rem;
-    max-height: 10rem;
+    height: 10rem;
 }
 
 section button {
-    font-size: 1.5rem;
-    flex: 0 0 40%;
+    font-size: 1.3rem;
+    padding: 2px;
+    flex: 0 0 45%;
     color: antiquewhite;
     background: #03A678;
     border: 4px solid #014040;
@@ -153,5 +229,14 @@ section button:hover {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(500%);
     }
 }
