@@ -38,15 +38,15 @@ const setDifficulty = (max,zoom) => {
 }
 
 easyBtn.addEventListener('click', () => {
-    setDifficulty(70,15);
+    setDifficulty(75,10);
 })
 
 mediumBtn.addEventListener('click', () => {
-    setDifficulty(80,10);
+    setDifficulty(85,7);
 })
 
 expertBtn.addEventListener('click', () => {
-    setDifficulty(90,5);
+    setDifficulty(95,3);
 })
 
 const generateNumber = (max) => {
