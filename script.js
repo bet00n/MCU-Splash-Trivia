@@ -14,11 +14,11 @@ const zoomBtn = document.querySelector('#zoom');
 const fiftyFiftyBtn = document.querySelector('#fifty-fifty');
 const hintsBtn = document.querySelector('#hints');
 const hintsDisplay = document.querySelector('.hints-display');
-
+const lifelines = document.querySelectorAll('.lifeline');
 
 //global variables
-let MAX_CLIP_PERCENTAGE = 90;
-let ZOOM_CLIP_PERCENTAGE = 5;
+let MAX_CLIP_PERCENTAGE = 0;
+let ZOOM_CLIP_PERCENTAGE = 0;
 let totalPoints = 0;
 let activeRound = 1;
 let validAnswer = '';
@@ -47,6 +47,9 @@ mediumBtn.addEventListener('click', () => {
 
 expertBtn.addEventListener('click', () => {
     setDifficulty(95,3);
+    lifelines.forEach((lifeline) => {
+        lifeline.classList.remove('available');
+    })
 })
 
 const generateNumber = (max) => {
@@ -125,7 +128,7 @@ const setRound = () => {
 const playRound = () => {
     const idx = generateMovieIndex();
     validAnswer =  movies[idx].title;
-    console.log('Nowa odpowiedz: ' + validAnswer);
+    // console.log('Nowa odpowiedz: ' + validAnswer);
     hints = movies[idx].hints;
     generateSplash(idx);
     movies.splice(idx,1);
