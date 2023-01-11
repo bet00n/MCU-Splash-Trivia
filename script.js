@@ -16,7 +16,6 @@ const hintsBtn = document.querySelector('#hints');
 const hintsDisplay = document.querySelector('.hints-display');
 const lifelines = document.querySelectorAll('.lifeline');
 
-//global variables
 let MAX_CLIP_PERCENTAGE = 0;
 let ZOOM_CLIP_PERCENTAGE = 0;
 let totalPoints = 0;
@@ -115,7 +114,7 @@ const clearScene = () => {
 const setRound = () => {
     clearScene();
     if (activeRound == 10){
-        //end view
+        //TODO end view
         console.log('koniec gry');
         toggleBackdrop();
     } else {
