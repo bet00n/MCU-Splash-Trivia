@@ -110,6 +110,7 @@ body {
     border-radius: 2rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.8);
     position: relative;
@@ -219,7 +220,7 @@ img {
     border-radius: 50px;
     padding: 2px 1rem;
     position: absolute;
-    top: 7.5rem;
+    top: 11rem;
     width: fit-content;
     display: none;
     animation: fade-in 2s linear forwards;
@@ -227,7 +228,7 @@ img {
 
 @media (min-width:40rem) {
     .hints-display {
-        top:11rem;
+        top:13rem;
         font-size: 1rem;
     }
 }
@@ -243,6 +244,7 @@ img {
 }
 
 section button {
+    min-height: 2.5rem;
     font-size: 1rem;
     color: var(--secondary);
     background: var(--primaryLight);
@@ -251,9 +253,9 @@ section button {
     cursor: pointer;
 }
 
-@media (min-width:40rem) {
+@media (min-height:55rem) and (min-width:55rem) {
     section button {
-        font-size: 2rem;
+        font-size: 1.7rem;
         padding: .2rem;
         border-width: 4px;
     }
